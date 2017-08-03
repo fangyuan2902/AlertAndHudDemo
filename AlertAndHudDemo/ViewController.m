@@ -22,7 +22,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [HelperHud showWaiting];
+    [HelperHud showWaiting]; 
 //    [HelperHud tipMeaage:@"123456123456ui123456ui123456ui123456ui123456uiui" afterDelay:5];
 //    [HelperHud alertMessage:@"111" sureTitle:@"secwc" cancelTitle:@"123456" sureAction:^{
 //        NSLog(@"sdfghjk");
