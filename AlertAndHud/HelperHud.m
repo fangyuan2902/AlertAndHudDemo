@@ -230,8 +230,13 @@
     CGSize size = [self boundingRectWithText:message font:_messageLabel.font];
     float height = size.height;
     float width = (size.width > [[UIScreen mainScreen] bounds].size.width - 50) ? ([[UIScreen mainScreen] bounds].size.width - 50) : size.width;
-    _messageLabel.frame = CGRectMake(([[UIScreen mainScreen] bounds].size.width - width - 25) / 2, ([[UIScreen mainScreen] bounds].size.height - height - 20) / 2, width + 20, height + 20);
+//    _messageLabel.frame = CGRectMake(([[UIScreen mainScreen] bounds].size.width - width - 25) / 2, ([[UIScreen mainScreen] bounds].size.height - height - 20) / 2, width + 20, height + 20);
     [bgView addSubview:_messageLabel];
+    _messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_messageLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:width + 20]];
+    [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_messageLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:height + 20]];
+    [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_messageLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
+    [bgView addConstraint:[NSLayoutConstraint constraintWithItem:_messageLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
 }
 
 - (instancetype)initActivityIndicatorWithMessage:(NSString *)message view:(UIView *)view {
@@ -249,11 +254,16 @@
     bgView.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.5];
     [self addSubview:bgView];
     
-    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 100) / 2, ([[UIScreen mainScreen] bounds].size.height - 130) / 2, 100, 100)];
+    UIView *containerView = [[UIView alloc] init];
     containerView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.9];
     containerView.layer.masksToBounds = YES;
     containerView.layer.cornerRadius = 5;
     [bgView addSubview:containerView];
+    containerView.translatesAutoresizingMaskIntoConstraints = NO;
+    [bgView addConstraint:[NSLayoutConstraint constraintWithItem:containerView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100]];
+    [bgView addConstraint:[NSLayoutConstraint constraintWithItem:containerView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:100]];
+    [bgView addConstraint:[NSLayoutConstraint constraintWithItem:containerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
+    [bgView addConstraint:[NSLayoutConstraint constraintWithItem:containerView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:bgView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
     
     _indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _indicator.center = CGPointMake(50.0f, 45.0f);
@@ -264,10 +274,15 @@
     _messageLabel.font = [UIFont systemFontOfSize:15];
     _messageLabel.text = message;
     _messageLabel.textAlignment = NSTextAlignmentCenter;
-    _messageLabel.adjustsFontSizeToFitWidth = YES;
     _messageLabel.textColor = [UIColor blackColor];
-    _messageLabel.frame = CGRectMake(5, 70, 90, 20);
     [containerView addSubview:_messageLabel];
+    _messageLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *contraint1 = [NSLayoutConstraint constraintWithItem:_messageLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:90];
+    NSLayoutConstraint *contraint2 = [NSLayoutConstraint constraintWithItem:_messageLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeHeight multiplier:1 constant:20];
+    NSLayoutConstraint *contraint3 = [NSLayoutConstraint constraintWithItem:_messageLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:containerView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-10.0];
+    NSLayoutConstraint *contraint4 = [NSLayoutConstraint constraintWithItem:_messageLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:containerView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0];
+    NSArray *array = [NSArray arrayWithObjects:contraint1, contraint2, contraint3, contraint4, nil];
+    [containerView addConstraints:array];
 }
 
 - (void)dismiss {

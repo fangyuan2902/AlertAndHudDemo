@@ -22,12 +22,13 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [HelperHud showWaiting]; 
-//    [HelperHud tipMeaage:@"123456123456ui123456ui123456ui123456ui123456uiui" afterDelay:5];
+    [HelperHud showWaiting:@"123456123456ui123456ui123456ui123456ui123456uiui" afterDelay:2];
+//    [HelperHud showWaiting]; 
+//    [HelperHud tipMessage:@"123456123456ui123456ui123456ui123456ui123456uiui" afterDelay:5];
 //    [HelperHud alertMessage:@"111" sureTitle:@"secwc" cancelTitle:@"123456" sureAction:^{
 //        NSLog(@"sdfghjk");
 //    }];
-    [self performSelector:@selector(hidden) withObject:nil afterDelay:5];
+//    [self performSelector:@selector(hidden) withObject:nil afterDelay:5];
 }
 
 - (void)hidden {
